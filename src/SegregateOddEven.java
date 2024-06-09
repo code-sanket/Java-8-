@@ -17,6 +17,23 @@ public class SegregateOddEven {
 
 
 
-        Arrays.stream(arr).collect(Collectors.partitioningBy(i -> i % 2 == 0));
+        Map<Boolean, List<Integer>> oddEvenNumbersMap = Arrays.stream(arr).boxed().collect(Collectors.partitioningBy(i -> i % 2 == 0));
+        Set<Map.Entry<Boolean, List<Integer>>> entrySet = oddEvenNumbersMap.entrySet();
+        for(Map.Entry<Boolean, List<Integer>> entry : entrySet){
+            if(entry.getKey()){
+                System.out.println("Even Numbers");
+            }else{
+                System.out.println("Odd Numbers");
+            }
+
+            System.out.println("-------------");
+
+            List<Integer> list = entry.getValue();
+
+            for (int i : list)
+            {
+                System.out.println(i);
+            }
+        }
     }
 }

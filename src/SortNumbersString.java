@@ -16,9 +16,9 @@ public class SortNumbersString {
             }else if(a instanceof String && b instanceof String){
                 return (((String) a).compareTo((String) b));
             }else if(a instanceof Integer){
-                return -1;
+                return -1; // means number comes before String
             }else{
-                return 1;
+                return 1; // String after Numbers
             }
         });
 

@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,5 +41,22 @@ public class Main {
                 .map(a-> Integer.parseInt(a))                    // Convert each string digit to integer
                 .reduce(0, (a, b) -> a + b);
         System.out.println(sumOfDigits);
+
+        List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
+        Stream<Integer> i1 = listOfIntegers.stream().sorted(Comparator.reverseOrder()).skip(1).limit(1);
+        System.out.println(listOfIntegers.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get());
+        i1.forEach(System.out::println);
+
+        List<String> listOfStrings = Arrays.asList("Pen", "Eraser", "Note Book", "Pen", "Pencil", "Pen", "Note Book", "Pencil");
+
+        Map<String, Long> elementCountMap = listOfStrings.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        //find the most freq element
+        System.out.println(elementCountMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .get()
+                .getKey());
+
     }
     }

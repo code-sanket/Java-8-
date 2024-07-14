@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PrintTop3Students {
     static class Student {
@@ -58,13 +60,34 @@ public class PrintTop3Students {
         studentList.add(new Student("Vijay", 19, "Mathematics", 92.8));
         studentList.add(new Student("Harry", 20, "History", 71.9));
 
+        Optional<Student> student = studentList.stream().max((s1 , s2) -> (int) (s1.getPercentage() - s2.getPercentage()));
+        System.out.println(student.get().name);
+
         List<Student> top3 = studentList.stream().sorted((s1 , s2)-> (int) (s2.getPercentage() - s1.getPercentage())).limit(3).collect(Collectors.toList());
 
         top3.forEach(System.out::println);
+
+
+
+        Map<String, List<Student>> collect = studentList.stream().collect(Collectors.groupingBy(student1 -> student1.subject));
+        collect.forEach((s1,s2) ->{
+            System.out.println(s1);
+            s2.forEach(System.out::println);
+        });
 
         Map<String, List<Student>> studentsGroupedBySubject = studentList.stream().collect(Collectors.groupingBy(Student::getSubject));
         System.out.println(studentsGroupedBySubject);
 
         System.out.println(studentList.stream().count());
+
+        //checking anagrams
+
+        String s1 = "abcd";
+        String s2 = "dcba";
+
+        s1 = Stream.of(s1.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+        s2 = Stream.of(s2.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+
+        System.out.println(s1.equals(s2));
     }
 }

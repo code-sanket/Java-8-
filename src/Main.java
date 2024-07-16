@@ -37,10 +37,19 @@ public class Main {
 
         int i = 15623;
 
-        Integer sumOfDigits = Stream.of(String.valueOf(i).split(""))
-                .map(a-> Integer.parseInt(a))                    // Convert each string digit to integer
-                .reduce(0, (a, b) -> a + b);
-        System.out.println(sumOfDigits);
+        String str = "abc";
+        str = Arrays.stream(str.split("")).map(String::toUpperCase).collect(Collectors.joining());
+        System.out.println(str);
+
+        System.out.println(Arrays.stream(String.valueOf(i).split("")).map(e -> Integer.parseInt(e)).reduce(0,(a,b)-> a+b));
+
+        System.out.println("Printing Sum");
+
+//        Integer sumOfDigits = Stream.of(String.valueOf(i).split(""))
+//                .map(a-> Integer.parseInt(a))                    // Convert each string digit to integer
+//                .reduce(0, (a, b) -> a + b);
+
+//        System.out.println(sumOfDigits);
 
         List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
         Stream<Integer> i1 = listOfIntegers.stream().sorted(Comparator.reverseOrder()).skip(1).limit(1);
@@ -54,9 +63,18 @@ public class Main {
 
         //find the most freq element
         System.out.println(elementCountMap.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
+                .max((e1 , e2)-> (int) (e1.getValue() - e2.getValue()))
                 .get()
                 .getKey());
+
+        System.out.println("Printed the most freq element");
+
+
+        Map.Entry<String, Long> mostFrequentElement = elementCountMap.entrySet().stream().max(Map.Entry.comparingByValue()).get();
+
+        System.out.println("Most Frequent Element : "+mostFrequentElement.getKey());
+
+        System.out.println("Count : "+mostFrequentElement.getValue());
 
     }
     }
